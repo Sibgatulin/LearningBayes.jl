@@ -1,0 +1,44 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning}
+\begin{document}
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 15mm, thick, draw =black!80, node distance = 16mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+
+\node[main] (s0) {$s_t$};
+\node[main] (a0) [below=of s0] {$\alpha_t$};
+\node[main] (x0) [below=of a0] {$x_t$};
+\node[main, fill=black!10] (y0) [below=of x0] {$y_t$};
+
+\node[main] (s1) [right=of s0] {$s_{t+1}$};
+\node[main] (a1) [right=of a0] {$\alpha_{t+1}$};
+\node[main] (x1) [right=of x0] {$x_{t+1}$};
+\node[main, fill=black!11] (y1) [right=of y0] {$y_{t+1}$};
+
+\path (s0) edge [connect] (a0);
+\path (x0) edge [connect] (y0);
+
+\path (s1) edge [connect] (a1);
+\path (x1) edge [connect] (y1);
+
+\path (a0) edge [connect] (x1);
+\path (s0) edge [connect] (s1);
+\path (x0) edge [connect] (x1);
+
+\node[main, draw=black!0] (s2) [right=of s1] {};
+\node[main, draw=black!0] (s-1) [left=of s0] {};
+\path (s-1) edge [connect] (s0);
+\path (s1) edge [connect] (s2);
+
+\node[main, draw=black!0] (x2) [right=of x1] {};
+\node[main, draw=black!0] (x-1) [left=of x0] {};
+\path (x-1) edge [connect] (x0);
+\path (x1) edge [connect] (x2);
+\node[main, draw=black!0] (a-1) [left=of a0] {};
+\path (a1) edge [connect] (x2);
+\path (a-1) edge [connect] (x0);
+
+\end{tikzpicture}
+\end{document}
